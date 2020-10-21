@@ -90,6 +90,12 @@
 				<enabled>true</enabled>
 			</releases>
 		</repository>
+
+		<!--CDH发行版本的远程仓库-->
+		<!--<repository>
+			<id>cloudera</id>
+			<url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+		</repository>-->
 	</repositories>
 
 	<build>

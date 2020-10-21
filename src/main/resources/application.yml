@@ -1,1 +1,15 @@
+server:
+  port: 8081
 
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      location: data/output #文件上传目录
+      max-file-size: 200MB
+      max-request-size: 200MB
+
+#HDFS配置
+hdfs:
+    path: hdfs://127.0.0.1:8020  #HDFS地址
+    user: root

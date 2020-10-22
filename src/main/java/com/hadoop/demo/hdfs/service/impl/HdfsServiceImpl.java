@@ -3,12 +3,16 @@ package com.hadoop.demo.hdfs.service.impl;
 import com.hadoop.demo.hdfs.service.HdfsService;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.LocatedFileStatus;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.RemoteIterator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * @author fujh
@@ -51,17 +55,20 @@ public class HdfsServiceImpl implements HdfsService {
          * 副本系数为1
          */
         configuration.set("dfs.replication","1");
+        System.out.println("--------------------------------------------------------------------------------------");
+        System.out.println("读取HDFS配置信息fs.defaultFS:"+configuration.get("fs.defaultFS"));
+        System.out.println("读取HDFS配置信息hadoop.tmp.dir:"+configuration.get("hadoop.tmp.dir"));
+        System.out.println("读取HDFS配置信息dfs.replication:"+configuration.get("dfs.replication"));
+        System.out.println("--------------------------------------------------------------------------------------");
         return configuration;
     }
 
     /**
      * 配置HDFS文件系统类FileSystem
      * @return
-     * @throws URISyntaxException
-     * @throws IOException
-     * @throws InterruptedException
+     * @throws Exception
      */
-    private static FileSystem getFileSystem() throws URISyntaxException, IOException, InterruptedException {
+    private static FileSystem getFileSystem() throws Exception {
         /**
          * 配置HDFS地址，配置类，操作用户
          */
@@ -71,5 +78,19 @@ public class HdfsServiceImpl implements HdfsService {
     @Override
     public String showInfo() {
         return path+"---"+user;
+    }
+
+    /**
+     * 查看文件
+     *
+     * @param path
+     * @return
+     */
+    @Override
+    public List<Object> lsitFiles(String path) throws Exception {
+        FileSystem fileSystem = getFileSystem();
+        RemoteIterator<LocatedFileStatus> locatedFileStatusRemoteIterator = fileSystem.listFiles(new Path(path), false);
+
+        return null;
     }
 }

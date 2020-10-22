@@ -32,6 +32,12 @@
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-common</artifactId>
 			<version>${hadoop.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jdk.tools</artifactId>
+					<groupId>jdk.tools</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!--操作Hadoop-HDFS包-->

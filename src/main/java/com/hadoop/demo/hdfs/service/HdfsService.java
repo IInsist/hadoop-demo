@@ -4,6 +4,9 @@ import com.hadoop.demo.config.HdfsConfig;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * @author fujh
@@ -12,7 +15,16 @@ import javax.annotation.Resource;
  */
 public interface HdfsService {
 
+    /**
+     * 测试
+     * @return
+     */
     String showInfo();
 
-
+    /**
+     * 查看文件
+     * @param path
+     * @return
+     */
+    List<Object> lsitFiles(String path) throws Exception;
 }

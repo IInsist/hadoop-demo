@@ -1,6 +1,7 @@
 package com.hadoop.demo.hdfs;
 
 import com.hadoop.demo.hdfs.service.HdfsService;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -19,6 +20,8 @@ public class HdfsTest {
     @Resource
     private HdfsService service;
 
-
+    @Test
+    public void test(){
+    }
 
 }

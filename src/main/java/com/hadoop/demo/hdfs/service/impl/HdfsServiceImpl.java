@@ -59,4 +59,28 @@ public class HdfsServiceImpl implements HdfsService {
     public boolean mkdir(String path) throws Exception {
         return fileSystem.mkdirs(new Path(path));
     }
+
+    /**
+     * 删除指定目录
+     *
+     * @param path
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean delDir(String path) throws Exception {
+        return fileSystem.delete(new Path(path),false);
+    }
+
+    /**
+     * 删除指定目录文件
+     *
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean delFile(String filePath) throws Exception {
+        return fileSystem.delete(new Path(filePath),true);
+    }
 }

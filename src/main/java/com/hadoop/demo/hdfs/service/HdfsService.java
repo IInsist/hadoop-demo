@@ -29,4 +29,22 @@ public interface HdfsService {
      * @param path
      */
     boolean mkdir(String path) throws Exception;
+
+    /**
+     * 删除指定目录
+     * @param path
+     * @return
+     * @throws Exception
+     */
+    boolean delDir(String path) throws Exception;
+
+    /**
+     * 删除指定目录文件
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
+    boolean delFile(String filePath) throws Exception;
+
+
 }

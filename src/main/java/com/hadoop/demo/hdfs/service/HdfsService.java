@@ -1,11 +1,7 @@
 package com.hadoop.demo.hdfs.service;
 
-import com.hadoop.demo.config.HdfsConfig;
-import org.springframework.stereotype.Component;
+import org.apache.hadoop.fs.Path;
 
-import javax.annotation.Resource;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -26,5 +22,11 @@ public interface HdfsService {
      * @param path
      * @return
      */
-    List<Object> lsitFiles(String path) throws Exception;
+    List<Path> lsitFiles(String path) throws Exception;
+
+    /**
+     * 创建目录
+     * @param path
+     */
+    boolean mkdir(String path) throws Exception;
 }

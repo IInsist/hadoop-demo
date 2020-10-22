@@ -1,12 +1,14 @@
 package com.hadoop.demo.hdfs;
 
 import com.hadoop.demo.hdfs.service.HdfsService;
+import org.apache.hadoop.fs.Path;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author
@@ -21,7 +23,13 @@ public class HdfsTest {
     private HdfsService service;
 
     @Test
-    public void test(){
+    public void test() throws Exception {
+        List<Path> paths = service.lsitFiles("/");
+        System.out.println("paths:"+paths.toString());
     }
 
+    @Test
+    public void mkdir() throws Exception {
+        service.mkdir("/test");
+    }
 }

@@ -11,5 +11,6 @@ spring:
 
 #HDFS配置
 hdfs:
-  path: hdfs://127.0.0.1:8020  #HDFS地址
+  path: hdfs://127.0.0.1:50010  #HDFS地址
   user: root
+  replication: 1 #副本系数

@@ -9,8 +9,15 @@ spring:
       max-file-size: 200MB
       max-request-size: 200MB
 
+logging:
+  file:
+    name: ./logs/hdfs-api.log
+  level:
+    root: info
+
 #HDFS配置
 hdfs:
   path: hdfs://127.0.0.1:50010  #HDFS地址
   user: root
   replication: 1 #副本系数
+

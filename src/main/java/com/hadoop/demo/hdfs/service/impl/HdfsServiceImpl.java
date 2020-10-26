@@ -1,13 +1,11 @@
 package com.hadoop.demo.hdfs.service.impl;
 
 import com.hadoop.demo.hdfs.service.HdfsService;
-import org.apache.hadoop.conf.Configuration;
+import lombok.extern.log4j.Log4j2;
 import org.apache.hadoop.fs.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +15,7 @@ import java.util.List;
 
  */
 @Service
+@Log4j2
 public class HdfsServiceImpl implements HdfsService {
 
     @Autowired
@@ -34,7 +33,7 @@ public class HdfsServiceImpl implements HdfsService {
      * @return
      */
     @Override
-    public List<Path> lsitFiles(String path) throws Exception {
+    public List<Path> lsitPaths(String path) throws Exception {
         List<Path> result = new ArrayList<>();
         FileStatus[] fileStatuses = fileSystem.listStatus(new Path(path));
         System.out.println("路径输出开始----------------------------------------");
@@ -54,7 +53,10 @@ public class HdfsServiceImpl implements HdfsService {
      */
     @Override
     public boolean mkdir(String path) throws Exception {
-        return fileSystem.mkdirs(new Path(path));
+        if(!fileSystem.exists(new Path(path))){
+            return fileSystem.mkdirs(new Path(path));
+        }
+        return true;
     }
 
     /**
@@ -66,6 +68,9 @@ public class HdfsServiceImpl implements HdfsService {
      */
     @Override
     public boolean delDir(String path) throws Exception {
+        if(!fileSystem.exists(new Path(path))){
+            return false;
+        }
         return fileSystem.delete(new Path(path),false);
     }
 
@@ -78,6 +83,30 @@ public class HdfsServiceImpl implements HdfsService {
      */
     @Override
     public boolean delFile(String filePath) throws Exception {
+        if(!fileSystem.exists(new Path(filePath))){
+            return false;
+        }
         return fileSystem.delete(new Path(filePath),true);
+    }
+
+    /**
+     * 上传文件
+     *
+     * @param filePath
+     * @param targetPath
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean uploadFile(String filePath, String targetPath) throws Exception {
+        try {
+            Path target = new Path(targetPath);
+            Path file = new Path(filePath);
+            fileSystem.copyFromLocalFile(file,target);
+        }catch (Exception e){
+            log.error("复制文件异常",e);
+            return false;
+        }
+        return true;
     }
 }

@@ -2,6 +2,7 @@ package com.hadoop.demo.hdfs.service;
 
 import org.apache.hadoop.fs.Path;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public interface HdfsService {
      * @param path
      * @return
      */
-    List<Path> lsitFiles(String path) throws Exception;
+    List<Path> lsitPaths(String path) throws Exception;
 
     /**
      * 创建目录
@@ -46,5 +47,12 @@ public interface HdfsService {
      */
     boolean delFile(String filePath) throws Exception;
 
-
+    /**
+     * 上传文件
+     * @param filePath
+     * @param targetPath
+     * @return
+     * @throws Exception
+     */
+    boolean uploadFile(String filePath,String targetPath) throws Exception;
 }

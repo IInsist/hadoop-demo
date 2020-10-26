@@ -1,5 +1,6 @@
 package com.hadoop.demo.config;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.hadoop.fs.FileSystem;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import java.net.URI;
  *      2、org.apache.hadoop.fs.FileSystem  ==》 操作类
  */
 @Configuration
+@Log4j2
 public class HdfsConfig {
 
     /**
@@ -72,8 +74,7 @@ public class HdfsConfig {
         try {
             fs = FileSystem.get(new URI(path), getConfiguration(), user);
         }catch (Exception e){
-            System.out.println("FileSystem初始化失败！");
-            e.printStackTrace();
+            log.error("FileSystem初始化失败！",e);
         }
         return fs;
     }

@@ -2,10 +2,7 @@ package com.hadoop.demo.hdfs.service.impl;
 
 import com.hadoop.demo.hdfs.service.HdfsService;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.LocatedFileStatus;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.fs.RemoteIterator;
+import org.apache.hadoop.fs.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -38,16 +35,16 @@ public class HdfsServiceImpl implements HdfsService {
      */
     @Override
     public List<Path> lsitFiles(String path) throws Exception {
-        RemoteIterator<LocatedFileStatus> locatedFileStatusRemoteIterator = fileSystem.listFiles(new Path(path), false);
-        List<Path> paths = new ArrayList<>();
-        System.out.println("HDFS路径输出开始------------------------------------------");
-        while (locatedFileStatusRemoteIterator.hasNext()){
-            LocatedFileStatus next = locatedFileStatusRemoteIterator.next();
-            paths.add(next.getPath());
-            System.out.println(next.getPath().toString());
+        List<Path> result = new ArrayList<>();
+        FileStatus[] fileStatuses = fileSystem.listStatus(new Path(path));
+        System.out.println("路径输出开始----------------------------------------");
+        for (int i = 0; i < fileStatuses.length; i++) {
+            Path temp = fileStatuses[i].getPath();
+            System.out.println("temp:"+temp.toString());
+            result.add(temp);
         }
-        System.out.println("HDFS路径输出结束------------------------------------------");
-        return paths;
+        System.out.println("路径输出结束----------------------------------------");
+        return result;
     }
 
     /**

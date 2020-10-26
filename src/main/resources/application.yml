@@ -14,10 +14,13 @@ logging:
     name: ./logs/hdfs-api.log
   level:
     root: info
+  pattern: #配置日志输出前缀
+    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n)'  #配置日志内容输出前缀
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} %msg%n' #配置日志内容样式
 
 #HDFS配置
 hdfs:
-  path: hdfs://127.0.0.1:50010  #HDFS地址
+  path: hdfs://127.0.0.1/  #HDFS地址
   user: root
   replication: 1 #副本系数
 

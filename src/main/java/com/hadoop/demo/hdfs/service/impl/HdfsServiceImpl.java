@@ -33,7 +33,7 @@ public class HdfsServiceImpl implements HdfsService {
      * @return
      */
     @Override
-    public List<Path> lsitPaths(String path) throws Exception {
+    public List<Path> listPaths(String path) throws Exception {
         List<Path> result = new ArrayList<>();
         FileStatus[] fileStatuses = fileSystem.listStatus(new Path(path));
         System.out.println("路径输出开始----------------------------------------");
@@ -103,10 +103,33 @@ public class HdfsServiceImpl implements HdfsService {
             Path target = new Path(targetPath);
             Path file = new Path(filePath);
             fileSystem.copyFromLocalFile(file,target);
+            return true;
         }catch (Exception e){
             log.error("复制文件异常",e);
             return false;
         }
-        return true;
+    }
+
+    /**
+     * 文件下载
+     *
+     * @param filePath
+     * @param destPath
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean downloadFile(String filePath,String destPath) throws Exception {
+        try {
+            Path file = new Path(filePath);
+            if(fileSystem.exists(file)){
+                Path dest = new Path(filePath);
+                fileSystem.copyToLocalFile(file,dest);
+            }
+            return true;
+        }catch (Exception e){
+            log.error("文件下载异常！",e);
+            return false;
+        }
     }
 }

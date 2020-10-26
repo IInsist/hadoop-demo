@@ -48,12 +48,19 @@ public class HdfsConfig {
          * 配置HDFS地址
          */
         configuration.set("fs.defaultFS",path);
+
         /**
-         * 临时存储目录（配置的还是服务器上的地址）
+         * 配置临时存储目录（配置的还是服务器上的地址）
          */
         configuration.set("hadoop.tmp.dir","/root/software/hadoop-2.6.0/tmp");
+
         /**
-         * 副本系数为1
+         * 配置允许使用hostname访问HDFS客户端
+         */
+        configuration.set("dfs.client.use.datanode.hostname", "true");
+
+        /**
+         * 配置副本系数
          */
         configuration.set("dfs.replication",replication);
         System.out.println("--------------------------------------------------------------------------------------");
@@ -65,7 +72,7 @@ public class HdfsConfig {
     }
 
     /**
-     * 利用IOC容器管控FileSystem实例
+     * 将FileSystem实例注册至IOC
      * @return
      */
     @Bean

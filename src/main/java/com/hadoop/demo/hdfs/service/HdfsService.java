@@ -23,7 +23,7 @@ public interface HdfsService {
      * @param path
      * @return
      */
-    List<Path> lsitPaths(String path) throws Exception;
+    List<Path> listPaths(String path) throws Exception;
 
     /**
      * 创建目录
@@ -55,4 +55,13 @@ public interface HdfsService {
      * @throws Exception
      */
     boolean uploadFile(String filePath,String targetPath) throws Exception;
+
+    /**
+     * 文件下载
+     * @param filePath
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
+    boolean downloadFile(String filePath,String destPath) throws Exception;
 }

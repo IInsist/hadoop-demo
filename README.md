@@ -23,5 +23,5 @@
 
 二、相关信息<br>
 1. HDFS配置类：com.hadoop.demo.config.HdfsConfig
-2. HDFS服务实现类：com.hadoop.demo.hdfs.service.impl.HdfsServiceImpl
+2. HDFS业务实现类：com.hadoop.demo.hdfs.service.impl.HdfsServiceImpl
 3. HDFS测试类：com.hadoop.demo.hdfs.HdfsTest

@@ -27,7 +27,7 @@ public class HdfsTest {
      * @throws Exception
      */
     @Test
-    public void listPaths() throws Exception {
+    public void listPaths(){
         List<Path> paths = service.listPaths("/");
         System.out.println("paths:"+paths.toString());
     }
@@ -37,7 +37,7 @@ public class HdfsTest {
      * @throws Exception
      */
     @Test
-    public void mkdir() throws Exception {
+    public void mkdir(){
         service.mkdir("/test2");
     }
 
@@ -46,7 +46,7 @@ public class HdfsTest {
      * @throws Exception
      */
     @Test
-    public void delFile() throws Exception {
+    public void delFile(){
         if(service.delFile("/test/Linux服务列表.pdf")){
             System.out.println("删除成功！");
         }
@@ -57,7 +57,7 @@ public class HdfsTest {
      * @throws Exception
      */
     @Test
-    public void delDir() throws Exception {
+    public void delDir(){
         if(service.delDir("/test2")){
             System.out.println("删除成功！");
         }
@@ -68,7 +68,7 @@ public class HdfsTest {
      * @throws Exception
      */
     @Test
-    public void uploadFile() throws Exception {
+    public void uploadFile(){
         String filePath = "E:\\Linux服务列表.pdf";
         String targetPath = "/test";
         if(service.uploadFile(filePath,targetPath)){
@@ -81,7 +81,7 @@ public class HdfsTest {
      * @throws Exception
      */
     @Test
-    public void downloadFile() throws Exception {
+    public void downloadFile(){
         String filePath = "/data/xy_bjsl.txt";
         String targetPath = "D:\\fiels\\";
         if(service.downloadFile(filePath,targetPath)){

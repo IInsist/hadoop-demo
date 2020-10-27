@@ -2,10 +2,13 @@ package com.hadoop.demo.hdfs.service.impl;
 
 import com.hadoop.demo.hdfs.service.HdfsService;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.fs.*;
+import org.apache.hadoop.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,13 +78,13 @@ public class HdfsServiceImpl implements HdfsService {
      *
      * @param path
      * @return
-     * @throws Exception
      */
     @Override
     public boolean delDir(String path){
         try {
             Path obj = new Path(path);
             if(!fileSystem.exists(obj)){
+                System.out.println("目录不存在："+path);
                 return false;
             }
             return fileSystem.delete(obj,false);
@@ -96,7 +99,7 @@ public class HdfsServiceImpl implements HdfsService {
      *
      * @param filePath
      * @return
-     * @throws Exception
+     
      */
     @Override
     public boolean delFile(String filePath){
@@ -117,7 +120,6 @@ public class HdfsServiceImpl implements HdfsService {
      * @param filePath
      * @param targetPath
      * @return
-     * @throws Exception
      */
     @Override
     public boolean uploadFile(String filePath, String targetPath){
@@ -140,7 +142,6 @@ public class HdfsServiceImpl implements HdfsService {
      * @param filePath
      * @param destPath
      * @return
-     * @throws Exception
      */
     @Override
     public boolean downloadFile(String filePath,String destPath){
@@ -163,7 +164,6 @@ public class HdfsServiceImpl implements HdfsService {
      * @param filePath
      * @param destPath
      * @return
-     * @throws Exception
      */
     @Override
     public boolean moveFile(String filePath, String destPath){
@@ -183,12 +183,40 @@ public class HdfsServiceImpl implements HdfsService {
     }
 
     /**
+     * 复制文件
+     *
+     * @param filePath
+     * @param destPath
+     * @return
+     */
+    @Override
+    public boolean copyFile(String filePath, String destPath) {
+        try {
+            Path file = new Path(filePath);
+            if(fileSystem.exists(file)){
+                Path dest = new Path(destPath);
+
+                FSDataInputStream in = null;
+                FSDataOutputStream out = null;
+                in = fileSystem.open(file);
+                out = fileSystem.create(dest);
+                IOUtils.copyBytes(in,out,1024);
+                return true;
+            }
+            return false;
+        }catch (Exception e){
+            log.error("复制文件异常！",e);
+            return false;
+        }
+    }
+
+    /**
      * 文件重命名
      *
      * @param filePath
      * @param newName
      * @return
-     * @throws Exception
+     
      */
     @Override
     public boolean renameFile(String filePath, String newName) {
@@ -202,5 +230,36 @@ public class HdfsServiceImpl implements HdfsService {
             log.error("移动文件异常！",e);
             return false;
         }
+    }
+
+    /**
+     * 判断文件是否存在
+     *
+     * @param filePath
+     * @return
+     */
+    @Override
+    public boolean existsFile(String filePath) {
+        try {
+            if(StringUtils.isNotEmpty(filePath)){
+                return fileSystem.exists(new Path(filePath));
+            }
+            return false;
+        }catch (Exception e){
+            log.error("判断文件是否存在异常！",e);
+            return false;
+        }
+    }
+
+    /**
+     * 查看FileSystem对象初始化信息
+     */
+    @PostConstruct
+    public void outputHdfsInfo(){
+        System.out.println("HDFS相关信息：------------------------------");
+        System.out.println("URI:"+fileSystem.getUri());
+        System.out.println("HomeDirectory:"+fileSystem.getHomeDirectory());
+        System.out.println("Scheme:"+fileSystem.getScheme());
+        System.out.println("HDFS相关信息：------------------------------");
     }
 }

@@ -74,6 +74,15 @@ public interface HdfsService {
     boolean moveFile(String filePath,String destPath);
 
     /**
+     * 复制文件
+     * @param filePath
+     * @param destPath
+     * @return
+     * @throws Exception
+     */
+    boolean copyFile(String filePath,String destPath);
+
+    /**
      * 文件重命名
      * @param filePath
      * @param newName
@@ -81,4 +90,12 @@ public interface HdfsService {
      * @throws Exception
      */
     boolean renameFile(String filePath,String newName);
+
+    /**
+     * 判断文件是否存在
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
+    boolean existsFile(String filePath);
 }

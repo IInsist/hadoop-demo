@@ -28,7 +28,7 @@ public class HdfsTest {
      */
     @Test
     public void listPaths(){
-        List<Path> paths = service.listPaths("/");
+        List<Path> paths = service.listPaths("/user/root/");
         System.out.println("paths:"+paths.toString());
     }
 
@@ -82,10 +82,24 @@ public class HdfsTest {
      */
     @Test
     public void downloadFile(){
-        String filePath = "/data/xy_bjsl.txt";
+        //String filePath = "/data/xy_bjsl.txt";
+        String filePath = "/test/Linux服务列表.pdf";
         String targetPath = "D:\\fiels\\";
         if(service.downloadFile(filePath,targetPath)){
             System.out.println("下载成功！");
+        }
+    }
+
+    /**
+     * 复制文件
+     * @throws Exception
+     */
+    @Test
+    public void copyFile(){
+        String filePath = "/test/Linux服务列表.pdf";
+        String targetPath = "/data/Linux服务列表.pdf";
+        if(service.copyFile(filePath,targetPath)){
+            System.out.println("复制成功！");
         }
     }
 }

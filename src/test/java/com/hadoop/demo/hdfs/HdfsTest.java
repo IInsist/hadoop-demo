@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @author
+ * @author fujh
  * @since 2020年10月21日11:11:40
  * HDFS测试类
  */
@@ -44,7 +44,7 @@ public class HdfsTest {
      */
     @Test
     public void delFile(){
-        if(service.delFile("/test/Linux服务列表.pdf")){
+        if(service.delFile("/data/Linux服务列表.pdf")){
             System.out.println("删除成功！");
         }
     }
@@ -93,6 +93,18 @@ public class HdfsTest {
         String targetPath = "/data/Linux服务列表.pdf";
         if(service.copyFile(filePath,targetPath)){
             System.out.println("复制成功！");
+        }
+    }
+
+    /**
+     * 移动文件
+     */
+    @Test
+    public void moveFile(){
+        String filePath = "/test/Linux服务列表.pdf";
+        String targetPath = "/data/";
+        if(service.moveFile(filePath,targetPath)){
+            System.out.println("移动文件成功！");
         }
     }
 

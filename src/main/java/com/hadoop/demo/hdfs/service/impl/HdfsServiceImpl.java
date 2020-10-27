@@ -101,7 +101,6 @@ public class HdfsServiceImpl implements HdfsService {
      *
      * @param filePath
      * @return
-     
      */
     @Override
     public boolean delFile(String filePath){
@@ -171,12 +170,25 @@ public class HdfsServiceImpl implements HdfsService {
     public boolean moveFile(String filePath, String destPath){
         try {
             Path file = new Path(filePath);
-            if(fileSystem.exists(file)){
-                Path dest = new Path(destPath);
-                if(fileSystem.isDirectory(dest)){
-                    fileSystem.moveFromLocalFile(file,dest);
-                }
+            if(!fileSystem.exists(file)){
+                return false;
             }
+            //获得文件信息
+            FileStatus fileStatus = fileSystem.getFileStatus(file);
+            Path dest = new Path(destPath+"/"+fileStatus.getPath().getName());
+
+            System.out.println("移动的目标文件："+dest.toUri().getPath());
+            //复制文件
+            FSDataInputStream in = null;
+            FSDataOutputStream out = null;
+            in = fileSystem.open(file);
+            out = fileSystem.create(dest,false);
+            IOUtils.copyBytes(in,out,1024);
+            in.close();
+            out.close();
+
+            //删除源文件
+            delFile(filePath);
             return true;
         }catch (Exception e){
             log.error("移动文件异常！",e);
@@ -201,7 +213,7 @@ public class HdfsServiceImpl implements HdfsService {
                 FSDataInputStream in = null;
                 FSDataOutputStream out = null;
                 in = fileSystem.open(file);
-                out = fileSystem.create(dest);
+                out = fileSystem.create(dest,false);
                 IOUtils.copyBytes(in,out,1024);
                 in.close();
                 out.close();

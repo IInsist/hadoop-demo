@@ -34,7 +34,6 @@ public interface HdfsService {
      * 删除指定目录
      * @param path
      * @return
-     * @throws Exception
      */
     boolean delDir(String path);
 
@@ -42,7 +41,6 @@ public interface HdfsService {
      * 删除指定目录文件
      * @param filePath
      * @return
-     * @throws Exception
      */
     boolean delFile(String filePath);
 
@@ -51,7 +49,6 @@ public interface HdfsService {
      * @param filePath
      * @param targetPath
      * @return
-     * @throws Exception
      */
     boolean uploadFile(String filePath,String targetPath);
 
@@ -60,7 +57,6 @@ public interface HdfsService {
      * @param filePath
      * @param filePath
      * @return
-     * @throws Exception
      */
     boolean downloadFile(String filePath,String destPath);
 
@@ -69,7 +65,6 @@ public interface HdfsService {
      * @param filePath
      * @param destPath
      * @return
-     * @throws Exception
      */
     boolean moveFile(String filePath,String destPath);
 
@@ -78,7 +73,6 @@ public interface HdfsService {
      * @param filePath
      * @param destPath
      * @return
-     * @throws Exception
      */
     boolean copyFile(String filePath,String destPath);
 
@@ -87,7 +81,6 @@ public interface HdfsService {
      * @param filePath
      * @param newName
      * @return
-     * @throws Exception
      */
     boolean renameFile(String filePath,String newName);
 
@@ -95,7 +88,13 @@ public interface HdfsService {
      * 判断文件是否存在
      * @param filePath
      * @return
-     * @throws Exception
      */
     boolean existsFile(String filePath);
+
+    /**
+     * 读取TXT类型文件
+     * @param filePath
+     * @return
+     */
+    StringBuffer readTxtFile(String filePath);
 }

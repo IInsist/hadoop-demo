@@ -24,7 +24,6 @@ public class HdfsTest {
 
     /**
      * 查看指定目录下子目录
-     * @throws Exception
      */
     @Test
     public void listPaths(){
@@ -34,7 +33,6 @@ public class HdfsTest {
 
     /**
      * 创建目录
-     * @throws Exception
      */
     @Test
     public void mkdir(){
@@ -43,7 +41,6 @@ public class HdfsTest {
 
     /**
      * 删除文件
-     * @throws Exception
      */
     @Test
     public void delFile(){
@@ -54,7 +51,6 @@ public class HdfsTest {
 
     /**
      * 删除目录
-     * @throws Exception
      */
     @Test
     public void delDir(){
@@ -65,7 +61,6 @@ public class HdfsTest {
 
     /**
      * 上传文件
-     * @throws Exception
      */
     @Test
     public void uploadFile(){
@@ -78,7 +73,6 @@ public class HdfsTest {
 
     /**
      * 文件下载
-     * @throws Exception
      */
     @Test
     public void downloadFile(){
@@ -92,7 +86,6 @@ public class HdfsTest {
 
     /**
      * 复制文件
-     * @throws Exception
      */
     @Test
     public void copyFile(){
@@ -101,5 +94,14 @@ public class HdfsTest {
         if(service.copyFile(filePath,targetPath)){
             System.out.println("复制成功！");
         }
+    }
+
+    /**
+     * 读取文件内容
+     */
+    @Test
+    public void readTxtFile(){
+        String filePath = "/data/teacher_info.txt";
+        StringBuffer stringBuffer = service.readTxtFile(filePath);
     }
 }

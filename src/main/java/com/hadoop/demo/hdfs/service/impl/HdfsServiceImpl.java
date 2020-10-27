@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -201,6 +203,8 @@ public class HdfsServiceImpl implements HdfsService {
                 in = fileSystem.open(file);
                 out = fileSystem.create(dest);
                 IOUtils.copyBytes(in,out,1024);
+                in.close();
+                out.close();
                 return true;
             }
             return false;
@@ -248,6 +252,40 @@ public class HdfsServiceImpl implements HdfsService {
         }catch (Exception e){
             log.error("判断文件是否存在异常！",e);
             return false;
+        }
+    }
+
+    /**
+     * 读取TXT类型文件
+     *
+     * @param filePath
+     * @return
+     */
+    @Override
+    public StringBuffer readTxtFile(String filePath) {
+        try {
+            if(StringUtils.isNotEmpty(filePath)){
+                Path file = new Path(filePath);
+                if(fileSystem.exists(file) && fileSystem.isFile(file)){
+                    StringBuffer fileContent = new StringBuffer();
+                    //文件内容
+                    FSDataInputStream in = fileSystem.open(file);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in.getWrappedStream()));
+
+                    System.out.println("读取文件："+filePath);
+                    while (reader.readLine() != null){
+                        String s = reader.readLine();
+                        System.out.println("输出内容："+s);
+                        fileContent.append(s);
+                    }
+                    in.close();
+                    return fileContent;
+                }
+            }
+            return null;
+        }catch (Exception e){
+            log.error("读取TXT类型文件异常！",e);
+            return null;
         }
     }
 

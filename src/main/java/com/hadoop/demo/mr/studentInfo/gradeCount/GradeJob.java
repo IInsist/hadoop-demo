@@ -17,6 +17,11 @@ import java.io.IOException;
  * @author fujh
  * @since 2020年10月28日10:11:59
  * 学生信息之年级统计任务
+ *  MapReduce Job核心类： org.apache.hadoop.mapreduce.Job
+ *      1、配置Job执行的Mapper类
+ *      2、配置Job执行的Reduce类
+ *      3、配置读取、输出结果的路径
+ *      4、执行Job
  */
 @Component
 public class GradeJob {
@@ -27,7 +32,7 @@ public class GradeJob {
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         System.setProperty("hadoop.home.dir","F:/hadoop2.6");
-        System.setProperty("HADOOP_USER_NAME","hadoop");
+        System.setProperty("HADOOP_USER_NAME","root");
 
         Configuration configuration = new Configuration();
         configuration.set("fs.defaultFS","hdfs://121.37.177.118");
@@ -36,7 +41,7 @@ public class GradeJob {
         configuration.set("dfs.replication","1");
 
         Path input = new Path("/test/input/student_info.txt");
-        Path output = new Path("/test/output/gread_count.txt");
+        Path output = new Path("/test/output/stdent_info/grade_count");
 
         Job greadCountJob = Job.getInstance(configuration, "学生信息之年级统计任务");
 

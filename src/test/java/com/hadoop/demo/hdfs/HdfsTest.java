@@ -44,7 +44,7 @@ public class HdfsTest {
      */
     @Test
     public void delFile(){
-        if(service.delFile("/test/input/input/student_info.txt")){
+        if(service.delFile("/test/output/grade_count.txt")){
             System.out.println("删除成功！");
         }
     }
@@ -78,7 +78,7 @@ public class HdfsTest {
     @Test
     public void downloadFile(){
         //String filePath = "/data/xy_bjsl.txt";
-        String filePath = "/test/Linux服务列表.pdf";
+        String filePath = "/test/output/grade_count.txt";
         String targetPath = "D:\\fiels\\";
         if(service.downloadFile(filePath,targetPath)){
             System.out.println("下载成功！");

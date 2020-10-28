@@ -106,6 +106,7 @@ public class HdfsServiceImpl implements HdfsService {
     public boolean delFile(String filePath){
         try {
             if(!fileSystem.exists(new Path(filePath))){
+                System.out.println("文件不存在！");
                 return false;
             }
             return fileSystem.delete(new Path(filePath),true);

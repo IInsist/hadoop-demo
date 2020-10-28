@@ -39,6 +39,8 @@ public class GradeMapper extends Mapper<LongWritable, Text,Text, IntWritable> {
         String[] studentAllInfo = value.toString().split("\t");
         //年级信息
         String nj = studentAllInfo[4];
+
+        System.out.println("xm:"+studentAllInfo[1]+"---"+"nj:"+nj);
         context.write(new Text(nj),new IntWritable(1));
         /**
          * 将拆分的数据依次写入上下文对象中，且记录出现次数为1

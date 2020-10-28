@@ -152,8 +152,10 @@ public class HdfsServiceImpl implements HdfsService {
             if(fileSystem.exists(file)){
                 Path dest = new Path(destPath);
                 fileSystem.copyToLocalFile(file,dest);
+                return true;
             }
-            return true;
+            System.out.println("文件或目录不存在！");
+            return false;
         }catch (Exception e){
             log.error("文件下载异常！",e);
             return false;

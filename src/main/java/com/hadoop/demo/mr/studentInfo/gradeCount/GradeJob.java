@@ -31,7 +31,8 @@ public class GradeJob {
      * @param args
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
-        System.setProperty("hadoop.home.dir","F:/hadoop2.6");
+
+        //因为HDFS在服务器上，开发在windows上，所以需设定访问用户
         System.setProperty("HADOOP_USER_NAME","root");
 
         Configuration configuration = new Configuration();
@@ -41,12 +42,16 @@ public class GradeJob {
         configuration.set("dfs.replication","1");
 
         Path input = new Path("/test/input/student_info.txt");
-        Path output = new Path("/test/output/stdent_info/grade_count");
+        Path output = new Path("/test/output/student_info/grade_count");
 
+        /**
+         * 定义Job类
+         */
         Job greadCountJob = Job.getInstance(configuration, "学生信息之年级统计任务");
 
-        //设置jar运行MapReduce类
+        //设置jar运行MapReduce类，目的为可通过 hadoop jar 的方式进行执行MepReduce
         greadCountJob.setJarByClass(GradeJob.class);
+
         /**
          * 1、设置map类
          */

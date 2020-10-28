@@ -78,7 +78,7 @@ public class HdfsTest {
     @Test
     public void downloadFile(){
         //String filePath = "/data/xy_bjsl.txt";
-        String filePath = "/test/output/student_info/major_count/";
+        String filePath = "/test/output/student_info/class_count/";
         String targetPath = "D:\\fiels\\";
         if(service.downloadFile(filePath,targetPath)){
             System.out.println("下载成功！");

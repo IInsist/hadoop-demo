@@ -36,7 +36,7 @@ public class HdfsTest {
      */
     @Test
     public void mkdir(){
-        service.mkdir("/test2");
+        service.mkdir("/test/output/");
     }
 
     /**
@@ -44,7 +44,7 @@ public class HdfsTest {
      */
     @Test
     public void delFile(){
-        if(service.delFile("/data/Linux服务列表.pdf")){
+        if(service.delFile("/test/input/input/student_info.txt")){
             System.out.println("删除成功！");
         }
     }
@@ -54,7 +54,7 @@ public class HdfsTest {
      */
     @Test
     public void delDir(){
-        if(service.delDir("/test2")){
+        if(service.delDir("/test/input/input")){
             System.out.println("删除成功！");
         }
     }
@@ -64,8 +64,9 @@ public class HdfsTest {
      */
     @Test
     public void uploadFile(){
-        String filePath = "E:\\Linux服务列表.pdf";
-        String targetPath = "/test";
+        //String filePath = "E:\\Linux服务列表.pdf";
+        String filePath = "F:\\WORKSPACR\\TempWORKSPACE\\hadoop-demo\\data\\input\\student_info.txt";
+        String targetPath = "/test/input";
         if(service.uploadFile(filePath,targetPath)){
             System.out.println("上传成功！");
         }

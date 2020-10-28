@@ -42,6 +42,7 @@ public class HdfsConfig {
      * HDFS配置类
      * @return
      */
+    @Bean
     public org.apache.hadoop.conf.Configuration getConfiguration(){
         org.apache.hadoop.conf.Configuration configuration = new org.apache.hadoop.conf.Configuration();
         /**
